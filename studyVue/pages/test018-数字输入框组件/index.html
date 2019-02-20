@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			此处使用:max的方式才能传数字,否则只能传字符串.v-model会自动被当作value接收
+			<input-number v-model="value" :max="20" :min="0" :step="5"></input-number>
+		</div>
+		
+		
+		<script type="text/x-template" id="my-component">
+			<div class="input-number">
+				<input type="text" :value="currentValue" @change="handleChange" @keyup="keyup" />
+				<button @click="handleDown" :disabled="currentValue <= min + step - 1">-</button>
+				<button @click="handleUp" :disabled="currentValue >= max - step + 1">+</button>
+			</div>
+		</script>
+		
+		
+		<script type="text/javascript" src="input-number.js" ></script>
+		
+		<script>
+			var app = new Vue({
+				el:"#app",
+				data:{
+					value:5
+				}
+			})
+		</script>
+		
+	</body>
+</html>

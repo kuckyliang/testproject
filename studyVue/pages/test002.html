@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="ademo">
+				<span v-once>v-once只加载一次 用于优化性能----{{message}}</span></br>
+				<span>没有v-once的----{{message}}</span></br>
+				<button @click="deleteinfo">修改message</button>
+			</div>
+			<div class="ademo">
+				 <span v-show="vshow">AAAAA</span>
+				 <span v-show="!vshow">BBBBB</span>
+				 <span>v-show 修改的display属性,开销比较小</span></br>
+				 <span v-if="vshow">AAAAA</span>
+				 <span v-if="!vshow">BBBBB</span>
+				 <span>v-if 直接操作dom元素 开销比较大 不适合频繁操作</span></br>
+				 <button @click="switchvshow">v-show,v-if切换</button>
+			</div>
+			<div class="ademo">
+				<ul>
+					<li v-for="(b,index) of books">{{index}}--{{b.name}}</li>
+					<template  v-for="(b,index) in books">
+						<li>编号:{{index}}</li>
+						<li>名字:{{b.name}}</li>
+					</template>
+				</ul>
+				<button @click="testInSz">asdf</button>
+			</div>
+		</div>
+		
+		<script>
+			
+			var app = new Vue({
+				el:"#app",
+				data:{
+					message:"hello,world",
+					vshow:false,
+					books:[
+						{ name:xx },
+						{ name:'可以用in或者of' },
+						{ name:'cccc' }
+					]
+				},
+				methods:{
+					deleteinfo:function(){
+						this.message = "no"
+					},
+					switchvshow:function(){
+						if(this.vshow){
+							this.vshow = false;
+						}else{
+							this.vshow = true;
+						}
+					},
+					
+					testInSz:function(){
+						console.log("in");
+						console.log(this.books);
+						console.log(this.books.pop());
+						console.log(this.books);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

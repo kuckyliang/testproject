@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="ademo">
+				<a href="http://www.baidu.com" @click="handleClick('禁止打开',$event)">阻止默认的href属性</a>
+			</div>
+			<div class="ademo">
+				<a href="http://www.baidu.com" @click.stop="handleClick('禁止打开',$event)">阻止默认的href属性</a>
+			</div>
+			<div class="ademo">
+				<input type="text" @keyup.13="tanchu" @keyup.f="other"/>只对输入回车会f键
+			</div>
+		</div>
+		<script>
+			var app = new Vue({
+				el:"#app",
+				data:{
+					
+				},
+				methods:{
+					handleClick:function(message,event){
+						//阻止默认冒泡
+						event.preventDefault();
+						window.alert(message);
+					},
+					tanchu:function(){
+						alert("敲击了回车");
+					},
+					other:function(v){
+						alert("敲击了f>>"+v.key);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

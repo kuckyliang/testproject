@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		<div id="app">
+			<my-cc></my-cc>
+			<my-cc></my-cc>
+			<my-cc></my-cc>
+			
+			<my-vv></my-vv>
+			
+			<my-test2 super-message="父组件传入数据"></my-test2>
+		</div>
+		
+		<script>
+			
+			var data1 = {
+				counter:3
+			}
+			
+			Vue.component('my-cc',{
+				template:'<div>这是一个全局组件{{message}}<button @click="message++">单例增加{{message}}</button><button @click="info.counter++">非单例增加{{info.counter}}</button></div>',
+				data:function(){
+					return {
+						info:data1,
+						message:1,
+					}
+				}
+			})
+			
+			Vue.component('my-test2',{
+				props:['superMessage'],
+				template:'<div>props可以接受字符串或者对象 横杠-分割命名要改成驼峰命名::{{superMessage}}</div>',
+				data:function(){
+					return {
+						info:data1,
+						message:1,
+					}
+				}
+			})
+			
+			var Child = {
+				template:"<div>这是一个局部组件</div>"
+			}
+			
+			var app = new Vue({
+				el:'#app',
+				components:{
+					'my-vv':Child
+				}
+			})
+		</script>
+	</body>
+</html>

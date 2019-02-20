@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="Astyle.css" />
+	</head>
+	<body>
+		<div id="app" >
+			<tabs v-model="currentValue">
+				<pane name="a" label="第一个">
+					内容内容111
+				</pane>
+				<pane name="f" label="第2个">
+					2222
+				</pane>
+				<pane name="g" label="第3个">
+					3333333
+				</pane>
+			</tabs>
+		</div>
+		
+		<script type="text/x-template" id="tabsTemplate">
+			<div>
+				<div class="tabs">
+					<div v-for="(items,index) in navList" :class="tabClass(items.name)" @click="chooseThis(items.name)">{{items.label}}xx</div>
+				</div> 
+				<div>
+					<slot></slot>
+				</div>
+			</div>
+		</script>
+		
+		<script type="text/x-template" id="pane-template">
+			<div v-show="show">
+				<slot></slot>
+			</div>
+		</script>
+		
+		<script type="text/javascript" src="../../js/vue.js" ></script>
+		<script type="text/javascript" src="Apane.js" ></script>
+		<script type="text/javascript" src="Atabs.js" ></script>
+		<script>
+			var app = new Vue({
+				el:"#app",
+				data:{
+					currentValue:"a"
+				}
+			});
+		</script>
+	</body>
+</html>

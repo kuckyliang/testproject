@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		
+		<div id="app">
+			<div class="ademo">
+				<input type="radio" :checked="ischeck"/>
+				<label>单选按钮</label><br />
+				
+				<input type="radio" v-model="xx" value="js" />
+				<label>js</label>
+				<input type="radio" v-model="xx" value="javascript" />
+				<label>javascript</label>
+				<input type="radio" v-model="xx" value="java" />
+				<label>java</label><br />
+				<span>已选中的:   {{xx}}</span><br />
+				
+				<input type="checkbox" v-model="cc" value="js" />
+				<label>js</label>
+				<input type="checkbox" v-model="cc" value="javascript" />
+				<label>javascript</label>
+				<input type="checkbox" v-model="cc" value="java" />
+				<label>java</label><br />
+				<span>已选中的:   {{cc}}</span>
+			</div>
+			
+			<select v-model="selected" >
+				<option v-for="(item,index) in alloption" value="item.value">{{item.name}}</option>
+			</select>
+			
+			<select v-model="selected">
+				<option>aa</option>
+			</select>
+		</div>
+		
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<script>
+			var app = new Vue({
+				el:"#app",
+				data:{
+					ischeck:true,
+					xx:null,
+					cc:[],
+					alloption:[
+						{
+							name:'xx',
+							value:'xxx',
+						},{
+							name:'cc',
+							value:'ccc',
+						},{
+							name:'vv',
+							value:'vvv',
+						}
+					],
+					selected:'xx'
+				},
+				methods:{
+					
+				}
+			})
+			
+		</script>
+	</body>
+</html>

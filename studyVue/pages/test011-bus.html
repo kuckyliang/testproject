@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		
+		<div id="app">
+			<span>设置空vue对象bus为总线 数据通过$emit传给bus,<br />再通过bus.$on来监听 实现组件之间的通信</span><br /><br />
+			<span>{{message}}</span><br /><br />
+			<six></six><br /><br />
+			<myxx></myxx>
+		</div>
+		
+		<script>
+			
+			var bus = new Vue();
+			
+			Vue.component("myxx",{
+				template:'<button @click="putit">把一条消息传给bus</button>',
+				methods:{
+					putit:function(){
+						bus.$emit("message","消息传给了bus");
+					}
+				}
+			});
+			
+			Vue.component("six",{
+				template:'<span>组件监测到消息>>{{mess}}</span>',
+				data:function(){
+					return{
+						mess : null
+					}
+				},
+				mounted:function(){
+					var _this = this;
+					bus.$on("message",function(msg){
+						_this.mess = msg
+					})
+				}
+			});
+			
+			var app = new Vue({
+				el:"#app",
+				data:{
+					message:null,
+				},mounted:function(){
+					var _this = this;
+					bus.$on("message",function(msg){
+						_this.message = "监听到了消息msg>>>"+msg
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

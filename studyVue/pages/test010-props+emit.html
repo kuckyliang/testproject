@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div class="app">
+			<span>父子组件间通过props和$emit相互通信</span><br /><br />
+			<span>总数:{{total}}</span><br />
+			<mytest v-model="total"></mytest><br />
+			<button @click="jia1">加一个</button>
+		</div>
+		
+		
+		<script>
+			
+			Vue.component("mytest",{
+				props:["value"],
+				template:'<input :value="value" @input="changeInput"/>',
+				methods:{
+					changeInput:function(event){
+						this.$emit("input",event.target.value)
+					}
+				}
+			})
+			
+			var app = new Vue({
+				el:".app",
+				data:{
+					total:0,
+				},methods:{
+					jia1:function(){
+						this.total++;
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

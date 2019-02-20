@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		
+		<div id="app">
+			<my-list :books="books">
+				<!-- 具名插槽使用slot要注意! 具名插槽也可以是作用域插槽 -->
+				<template slot="book" slot-scope="pp">
+					<li>{{pp.bookName}}</li>
+				</template>
+			</my-list>
+			<div v-for="book in books">{{book.name}}</div>
+		</div>
+		
+		<script>
+			
+			Vue.component('my-list',{
+				props:{
+					books:{
+						type:Array,
+						default:function(){
+							return [];
+						}
+					}
+				},
+				template:
+					'<ul>'+
+						'<slot v-for="book in books" :book-name="book.name" name="book"></slot>'+
+					'</ul>',
+				
+			});
+			
+			var app = new Vue({
+				el:"#app",
+				data:{
+					books:[
+						{name:'作用域插槽更加灵活,子组件的复用性更强 '},
+						{name:'哈哈'},
+						{name:'i\'m superman'}
+					]
+				}
+			})
+		</script>
+	</body>
+</html>

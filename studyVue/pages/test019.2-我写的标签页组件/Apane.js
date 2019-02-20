@@ -1,0 +1,24 @@
+Vue.component('pane',{
+	template:"#pane-template",
+	props:{
+		label:{
+			type:String
+		},
+		name:{
+			type:String
+		}
+	},
+	data:function(){
+		return {
+			show:true
+		}
+	},
+	methods:{
+		updateNav:function(){
+			this.$parent.updateNav();
+		}
+	},
+	mounted:function(){
+		this.updateNav();
+	}
+})

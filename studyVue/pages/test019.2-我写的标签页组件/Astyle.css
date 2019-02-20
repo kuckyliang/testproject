@@ -1,0 +1,25 @@
+.tab{
+	display: inline-block;
+	padding: 10px 20px;
+	margin-right: 10px;
+	border: 1px solid green;
+	cursor: pointer;
+}
+.tab-active{
+	border-bottom: 1px solid #fff;
+	position: relative;
+}.tab-active:before{
+	content: "";
+	display: block;
+	border: 1px solid #3399FF;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+.tabs:after{
+	content: "";
+	display: block;
+	border-top: 1px solid blue;
+	margin-top: -1px;
+}

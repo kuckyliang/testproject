@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<six>
+				这里的内容插入到slot中
+			</six>
+		</div>
+		<script>
+			Vue.component('six',{
+				template:'<div><span>这里是模板,下面是一个slot,父组件的内容会被插入到这里</span></br>'+
+						'<slot>'+
+							'<span>默认的内容<span>'+
+						'</slot>'+
+					'</div>'
+			})
+			
+			var app = new Vue({
+				el:"#app",
+				
+			})
+		</script>
+	</body>
+</html>

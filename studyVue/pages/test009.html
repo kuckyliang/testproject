@@ -1,0 +1,44 @@
+    <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>总数:{{total}}</div>
+			<bili @jiayi="totalchange" @jianyi="totalchange"></bili>
+		</div>
+		
+		<script>
+			Vue.component("bili",{
+				template:'<div><button @click="jian1">减1</button><button @click="jia1">加1</button></div>',
+				data:function(){
+					return {
+						countnum:0
+					}
+				},methods:{
+					jia1:function(){
+						this.countnum++;
+						this.$emit("jiayi",this.countnum);
+					},jian1:function(){
+						this.countnum--;
+						this.$emit("jianyi",this.countnum);
+					}
+				}
+			})
+			
+			var app = new Vue({
+				el:"#app",
+				data:{
+					total:0
+				},methods:{
+					totalchange:function(num){
+						this.total = num
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

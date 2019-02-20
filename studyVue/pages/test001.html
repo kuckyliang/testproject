@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<meta charset="UTF-8">
+		<style>
+			*{
+				font-size:22px;
+			}
+			#app>:nth-child(n){
+				margin:20px;
+			}
+			button{
+				padding:5px 20px;
+			}
+			.active{
+				border: 1px solid green;
+			}.aa{
+				border:3px solid red;
+			}.text-fail{
+				color:red
+			}
+			
+			#s>div{
+				display: inline-block;
+				width:300px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="app"> 
+			<div>
+				<span>过滤器,定时器以及定时器销毁示例       {{ date | formatDate | x2("yes") }}</span> </br>
+				<input v-if="show" :value="date | formatDate " /><br />
+				<button @click="hiddenInput">按钮联动示例   @click="hiddenInput"  {{showinfo}}</button>
+				<button @click="show = false">按钮联动示例方式2  @click="show = false" {{showinfo}}</button>
+				<button @dblclick="hiddenInput"> 双击   @dblclick </button>
+				<button @mousemove="hiddenInput"> 鼠标移动   @mousemove </button>
+				<button @keyup="hiddenInput"> 点击 然后触发键盘   @keyup </button>
+			</div>
+			<div>
+				<span>计算属性computed测试-全称 :  {{fullName}}</span>
+			</div>
+			<div id="s">
+				<div :class="{'active':isActive,'aa':isaa}">绑定class<button @click="isActive = false,isaa = true">去掉绑定边框</button></div>
+				<div :class="classes">计算属性<button @click="nostyle = false">去掉绑定边框</button></div>
+				<div :class="[{'active':isActive,'aa':isaa},classes]">计算属性<button @click="active = 66,isaaa = 66">去掉绑定边框</button></div>
+			</div>
+		</div>
+		
+		<script>
+			var app = new Vue({
+				el:'#app',
+				data:{
+					date : new Date(),
+					show : true,
+					showinfo :"输入框-消失",
+					
+					firstName:'li',
+					lastName:'ang',
+					
+					isActive:true,
+					active:'active',
+					isaaa:'isaa',
+					isaa:false,
+					nostyle:true,
+				},
+				
+				filters:{
+					//过滤器可以串联,可以传参数,第一个参数value为默认
+					formatDate:function(value){
+						var date = new Date(value);
+						return date.getSeconds();
+					},
+					x2:function(value,yesorno){
+						if(yesorno){
+							return value = value + "秒";
+						}
+					}
+				},
+				
+				created:function(){
+					console.log("初始化created先执行,还没有挂载el");
+				},
+				
+				mounted:function(){
+					//创建定时器美秒更新时间
+					var _this = this;
+					this.timer = setInterval(function(){
+						_this.date = new Date();
+					},1000);
+				},
+				
+				computed:{
+					//计算属性 特点在于每一个计算属性包含一个getter和setter
+					//计算属性特点在于有缓存,适合遍历大数组和做大量计算
+					fullName:{
+						get:function(){
+							return this.firstName + ' ' + this.lastName; 
+						},
+						set:function(newValue){
+							var names = newValue.split(" ");
+							this.firstName = names[0];
+							this.lastName = names[names.length - 1];
+						}
+					},
+					classes:function(){
+						return {
+							active:this.nostyle,
+							'text-fail':this.nostyle,
+						}
+					}
+				},
+				
+				methods:{
+					//methods内是所有方法
+					hiddenInput : function(value){
+						if(value.key != null){
+							alert("key = "+value.key);
+							console.log(value.key)
+						}
+						if(this.show){
+							this.show = false;
+							this.showinfo = "输入框-显示";
+						}else{
+							this.show = true;
+							this.showinfo = "输入框-消失";
+						}
+					}
+				},
+				
+				beforeDestroy:function(){
+					//实例销毁时 把timer关闭节约资源
+					if(this.timer){
+						clearInterval(this.timer);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

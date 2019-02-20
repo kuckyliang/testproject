@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+		<style>
+			.border div{
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		
+         	<div id="app">
+			<six>
+				<h2 slot="header">标题</h2>
+				<div>具名slot的方式</div>
+				<div>与不具名的可以共用</div>
+				<h4 slot="bottom">结尾</h4>
+			</six>
+		</div>
+		
+		<script>
+			Vue.component("six",{
+				template:
+					'<div class="border">'+
+						'<div>'+
+							'<slot name="header"></slot>'+
+						'</div>'+
+						'<div>'+
+							'<slot></slot>'+
+						'</div>'+
+						'<div>'+
+							'<slot name="bottom"></slot>'+
+						'</div>'+
+					'</div>',
+				
+			}) 
+			var app = new Vue({
+				el:'#app',
+			})
+		</script>
+	</body>
+</html>

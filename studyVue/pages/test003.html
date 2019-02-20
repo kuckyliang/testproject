@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<link rel="stylesheet" href="../css/demoStyle.css" />
+	</head>
+	<body>
+		<div class="ademo" id="app">
+			<button @click="addinfo">使用app.books.splice方法给数组添加一条</button></br>
+			<br /><br />
+			<span>P44 使用app.books.filter过滤不含java关键词的数组,会改变数组原始数据</span>
+			<ul>
+				<template v-for="(value,index) in books ">
+					<li>书名:{{value.name}}</li>
+					<li>作者:{{value.author}}</li>
+				</template>
+			</ul>
+			<span>computed内写filter的方式,不会改变数组原始数据</span>
+			<ul>
+				<template v-for="(value,index) in filterBooks ">
+					<li>书名:{{value.name}}</li>
+					<li>作者:{{value.author}}</li>
+				</template>
+			</ul>
+		</div>
+		<script>
+			var app = new Vue({
+				el:"#app",
+				data:{
+					books:[
+						{
+							name:'<<vue.js实战>>',
+							author:'xxx',
+						},{
+							name:'<<javascript>>',
+							author:"yyy",
+						},{
+							name:'<<java>>',
+							author:'ccc'
+						}
+					]
+				},
+				methods:{
+					
+					addinfo:function(){
+						console.log("adfadf");
+						app.books.splice(3,0,{
+							name:'congrumen',
+							author:'sdfsdf'
+						});
+//						this.$set(app.books,3,{
+//							name:"<<java从入门到精通>>",
+//							author:"lll",
+//						})
+					}
+				},
+				computed:{
+					filterBooks:function(){
+						return this.books.filter(function(book){
+							return book.name.match(/javascript/);
+						})
+					}
+				}
+			});
+			
+			app.books = app.books.filter(function(item){
+				return item.name.match("java");
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<style>
+</style>
+<body>
+<span id="ccc"></span>
+ <input id="xx"/>
+ <button onclick="textSize()">sdfgsdfgsdfg</button>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script>
+	
+function textSize(fontSize,fontFamily,text){
+	fontSize = "16px";
+	fontFamily = $("#id").css("fontFamily");
+	text = $("#xx").val();
+    var span = document.createElement("span");
+    var result = {};
+    result.width = span.offsetWidth;
+    result.height = span.offsetHeight;
+    span.style.visibility = "hidden";
+    span.style.fontSize = fontSize;
+    span.style.fontFamily = fontFamily;
+    span.style.display = "inline-block";
+    document.body.appendChild(span);
+    if(typeof span.textContent != "undefined"){
+      span.textContent = text;
+    }else{
+      span.innerText = text;
+    }
+    result.width = parseFloat(window.getComputedStyle(span).width) - result.width;
+    result.height = parseFloat(window.getComputedStyle(span).height) - result.height;
+    $("#ccc").html(result.width);
+    return result.width;
+}
+	
+</script>
+</body>
+</html>
